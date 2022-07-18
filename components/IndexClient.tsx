@@ -8,13 +8,7 @@ const GET_MOVIES = gql`
     allMovies {
       title
       id
-    }
-    allTweets {
-      id
-      text
-      author {
-        fullName
-      }
+      medium_cover_image
     }
   }
 `;
@@ -22,22 +16,12 @@ const GET_MOVIES = gql`
 interface Movie {
   id?: number;
   title: string;
-}
-
-interface Author {
-  fullName: string;
-}
-
-interface Tweet {
-  id?: number;
-  text: string;
-  author: Author;
+  medium_cover_image: string;
 }
 
 const IndexClient = () => {
   const { data, loading, error } = useQuery(GET_MOVIES);
   const movies: Movie[] = data?.allMovies;
-  const tweets: Tweet[] = data?.allTweets;
   const router = useRouter();
   if (loading) {
     return <h1>loading</h1>;
@@ -46,20 +30,19 @@ const IndexClient = () => {
     return <h1>Could not fetch :(</h1>;
   }
   return (
-    <ul>
-      <h1>Movies</h1>
-      {movies.map((movie) => (
-        <li key={movie.id} onClick={() => router.push(`/movie/${movie.id}`)}>
-          {movie.title}
-        </li>
-      ))}
-      <h1>Tweets</h1>
-      {tweets.map((tweet) => (
-        <li key={tweet.id}>
-          {tweet.text}/ by: {tweet.author.fullName}
-        </li>
-      ))}
-    </ul>
+    <div className="flex flex-col items-center">
+      <h1 className="font-serif text-5xl my-10 font-bold">Movies🎬</h1>
+      <div className="grid grid-cols-4">
+        {movies.map((movie) => (
+          <img
+            key={movie.id}
+            onClick={() => router.push(`/movie/${movie.id}`)}
+            src={movie.medium_cover_image}
+            className="w-40 m-4 rounded-lg hover:cursor-pointer hover:translate-y-2 transition-all shadow-lg"
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ import IndexClient from "../components/IndexClient";
 
 const index = () => {
   return (
-    <div className="w-screen h-screen bg-slate-400">
+    <div className="w-screen bg-slate-200">
       <IndexClient />
     </div>
   );

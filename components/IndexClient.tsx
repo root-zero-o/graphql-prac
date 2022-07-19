@@ -1,7 +1,6 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 const GET_MOVIES = gql`
   query getMovies {

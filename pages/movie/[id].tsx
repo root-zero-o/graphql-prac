@@ -20,12 +20,14 @@ const GET_MOVIE = gql`
 
 const Movie = () => {
   const router = useRouter();
+  // url 에 있는 id 가져오기
   const { id } = router.query;
   const {
     data,
     loading,
     client: { cache },
   } = useQuery(GET_MOVIE, {
+    // variables에 맞는 데이터를 가져온다.
     variables: {
       movieId: id,
     },
@@ -64,7 +66,7 @@ const Movie = () => {
         ⭐ {data?.movie.rating}
       </h2>
       <button
-        className="w-12 h-8 bg-slate-200 rounded-lg font-derif shadow-md"
+        className="w-12 h-8 bg-slate-200 rounded-lg font-serif shadow-md"
         onClick={onClick}
       >
         {data?.movie?.isLiked ? "Unlike" : "Like"}
